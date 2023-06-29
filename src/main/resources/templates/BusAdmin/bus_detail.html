@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+ th:replace="BusAdmin/base::layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title th:text="${title}">This is home Page</title>
+</head>
+<body>
+	<section>
+		
+		<div class="card mr-3 ml-3" th:if="${addBus}">
+			
+				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+ 				<p class="text-center" th:text="${session.message.content}"></p>
+ 				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+			<div class="card-body">
+			
+				<div class="container text-center">
+					<img alt="No" style="height: 200px; width: 200px;" class="my_profile_picture" th:src="@{/Images/addBus.jpg}" th:onerror="this.src='/images/addFlight.png';" />
+					
+					<h3 class="mt-3"><span th:text="${addBus.busName}"></span></h3>
+					
+					<table class="table">
+						  <thead>
+						    <tr>
+						      <th scope="col">#Bus No</th>
+						      <th scope="col"><span th:text="${addBus.busNo}"></span></th>
+						      
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">From</th>
+						      <td><span th:text="${addBus.From}"></span></td>
+						    </tr>
+						    
+						    
+						    <tr>
+						      <th scope="row">To</th>
+						      <td><span th:text="${addBus.To}"></span></td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Departure</th>
+						      <td><span th:text="${addBus.departure}"></span></td>
+						    </tr>
+						    
+						     <tr>
+						      <th scope="row">Arrival</th>
+						      <td><span th:text="${addBus.arrival}"></span></td>
+						    </tr>
+						    
+						     <tr>
+						      <th scope="row">Duration</th>
+						      <td><span th:text="${addBus.duration}"></span></td>
+						    </tr>
+						    
+						     <tr>
+						      <th scope="row">Day of Flight</th>
+						      <td><span th:text="${#strings.arrayJoin(addBus.days,',')}"></span></td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row"> Enabled</th>
+						      <td><span th:text="${addBus.enabled}"></span></td>
+						    </tr>
+						    	
+						    <tr>
+						      <th scope="row">AC Class Price</th>
+						      <td><span th:text="${addBus.acPrice}"></span></td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Non-AC Class Price</th>
+						      <td><span th:text="${addBus.noAcPrice}"></span></td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Trip Type</th>
+						      <td><span th:text="${addBus.tripType}"></span></td>
+						    </tr>
+						    	
+						    <tr>
+						      <th scope="row">AC Class</th>
+						      <td><span th:text="${addBus.acClass}"></span></td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Non-Ac Class</th>
+						      <td><span th:text="${addBus.nonAcClass}"></span></td>
+						    </tr>
+						    	
+						  </tbody> 
+				</table>
+					
+					<!-- <div class="description mt-3">
+						  	<th:block th:utext="${addBus.description}"></th:block>
+					 </div> -->
+					<div class="container mt-3">
+						<button th:onclick="|deleteFlight(${addBus.busNo})|" class="btn btn-danger btn-sm btn-block">Delete</button>
+					    <form th:action="@{#}" class="mt-2" th:method="put">
+					      	<button type="submit"  class="btn btn-primary btn-sm btn-block">Update</button>					      	
+					    </form>
+					</div>
+					
+				</div>
+			
+			</div>
+		
+		</div>
+		<h1 th:unless="${addBus}" class="text-center ml-3 mr-3 p-3 bg-danger text-white">You dont't have permission to see this Add Bus.....</h1>
+	</section>
+</body>
+</html>

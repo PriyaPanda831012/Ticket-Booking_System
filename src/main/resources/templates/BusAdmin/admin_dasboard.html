@@ -1,0 +1,136 @@
+<!--Bus   -->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="BusAdmin/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}">This is home page</title>
+</head>
+<body>
+	<section>
+			<div class="card mr-4 ml-4 mb-4">
+				<div th:if="${session.message}"
+					th:classappend="${session.message.type}" class="alert" role="alert">
+					<p class="text-center" th:text="${session.message.content}"></p>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+
+				<div class="card-body">
+					<div class="container">
+					<div class="row">
+					<div class="col-lg-6 mb-1" >
+						<a th:href="@{/admin/newadmin}" class="btn bg-primary  text-white">Upadte Admin</a>
+
+						<a th:href="@{/admin/addBus}" class="btn btn-warning  text-white">Add Bus</a>
+						
+						<a th:href="@{/admin//show_flights/0}" class="btn btn-warning  text-white">Go Flight Book</a>
+						</div>
+				<div class="col-lg-6 mb-1">
+				<div class="container ml-5">
+				<div class="card text-white bg-info mb-1" style="max-width: 10rem;max-height: 8rem;">
+				<div class="card-header"><i class="fas fa-bus fa-3x">  <span th:text="${numberOfBus}"></span></i></div>
+				<div class="card-body">
+					<h5 class="card-title ">Total Bus</h5>
+					</div>
+				</div>
+				</div>
+				</div>
+				</div>	
+			</div>
+					<h1 class="text-center">All Bus</h1>
+
+					<!-- Search -->
+					<div class="search-container my-4">
+						<input onkeyup="search()" id="search-input" type="text"
+							class="form-control" placeholder="Search your contact.....">
+						<div class="search-result" id="search-result">
+							<!-- search gose here -->
+						</div>
+					</div>
+
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">#Bus No</th>
+									<th scope="col">From</th>
+									<th scope="col">To</th>
+									<th scope="col">Bus Name</th>
+									<th scope="col">Departure</th>
+									<th scope="col">Arrival</th>
+									<th scope="col">Duration</th>
+									<th scope="col">Day of Bus</th>
+									<th scope="col">Cancel Bus</th>
+									<th scope="col" colspan="2">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+
+								<tr th:each="f : ${addBuss}">
+									<th scope="row" th:text="${f.busNo}">1</th>
+									<td th:text="${f.From}">BBSR</td>
+									<td th:text="${f.To}">NDLS</td>
+									<td><a th:href="@{'/admin/'+${f.busNo}+'/bus'}" style="text-decoration: none;"> <img alt="No" th:src="@{/Images/addBus.jpg}" class="my_profile_picture" src="#" />
+									</a> <span th:text="${f.busName}"> Bus Name</span></td>
+									<td th:text="${f.departure}">5:30AM</td>
+									<td th:text="${f.arrival}">8:30AM</td>
+									<td th:text="${f.duration}">3h 00m</td>
+									<td th:text="${#strings.arrayJoin(f.days,',')}">mon,Tud</td>
+									<td th:if="${f.enabled}">
+									<form th:action="@{'/admin/busOnOf/'+${f.busNo}+'/'+${currentPage}+'/'+${f.enabled}}"  id="myFlight" th:method="post"> 
+												<input type="checkbox"  id="onof" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger"  value="true" checked th:name="om" th:onchange="|busCancle12(${f.busNo},${currentPage},${f.enabled})|" >
+									</form>
+									</td>
+									<td th:unless="${f.enabled}">
+									<form th:action="@{'/admin/busOnOf/'+${f.busNo}+'/'+${currentPage}+'/'+${f.enabled}}"  id="myFlight" th:method="post"> 
+												<input type="checkbox"  id="onof" data-toggle="toggle" data-onstyle="outline-success" data-offstyle="outline-danger"  value="true"  th:name="om" th:onchange="|busCancle12(${f.busNo},${currentPage},${f.enabled})|" >
+									</form>
+									</td>
+									<td>
+										<button th:onclick="|deleteFlight(${f.busNo})|"
+											class="btn btn-danger btn-sm">Delete</button>
+
+										<form th:action="@{'/admin/update_bus/'+${f.busNo}}" class="mt-2">
+											<button type="submit" class="btn btn-primary btn-sm">Update</button>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+					<!-- pagination Part -->
+				<nav aria-label="Page navigation example">
+				
+					  <ul class="pagination">
+					  
+					    <li th:if="${currentPage!=0}" class="page-item"><a th:href="@{'/admin/show_bus/'+${currentPage-1}}" class="page-link" href="#">Previous</a></li>
+					    
+					    <li th:classappend="${currentPage==i-1} ? 'active' : ''" th:each="i : ${#numbers.sequence(1,totalPages)}" class="page-item"><a th:href="@{'/admin/show_bus/'+${i-1}}" class="page-link" href="#"><span th:text="${i}"> </span></a></li>
+					   
+					    
+					    <li th:if="${currentPage+1!=totalPages}" class="page-item"><a th:href="@{'/admin/show_bus/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
+					    
+					  </ul>
+				</nav>
+
+				</div>
+			</div>
+			
+			<script>
+			addEventListener('load',()=>{
+			document.getElementById('home-link').classList.add("active")
+			});
+			
+			addEventListener('unload',()=>{
+				document.getElementById('home-link').classList.remove('active');	
+			});
+			
+			
+
+		</script>
+			
+	</section>
+</body>
+</html>

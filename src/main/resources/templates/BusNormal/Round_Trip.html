@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="Normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>This is Bus Registration Page</title>
+</head>
+<body>
+
+<section>
+
+		<div class="container" >
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+
+					<div class="my-card mt-4 mb-4">
+
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+							<p class="text-center" th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+						<h1 class="text-center">Book Ticket Here !!</h1>
+						<form th:action="@{/user/Round_seat_bus}"  th:method="post" th:object="${addBus}">
+						
+						<div class="form-group">
+							
+							    <label for="number_field">Bus Number</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="number_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_busNo"
+							    required
+							    readonly
+							    th:value="${addBus.busNo}"
+							    >
+							    
+							 </div>
+						<!-- name field -->
+							<div class="form-group">
+							
+							    <label for="name_field">Bus Name</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="name_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_busName"
+							    required
+							    readonly
+							    th:value="${addBus.busName}"
+							    >
+							    
+							 </div>
+							 
+							 <!-- From field -->
+							<div class="form-group">
+							
+							    <label for="email_field">From</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="email_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_From"
+							    required
+							    readonly
+							    th:value="${addBus.From}"
+							    >
+							 </div>
+							 
+							  <!-- Intermediate field -->
+							<div class="form-group">
+							
+							    <label for="email_field">Intermediate</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="email_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_intermediate"
+							    required
+							    readonly
+							    th:value="${addBus.intermediate}"
+							    >
+							 </div>
+							 
+							 <!-- To field -->
+							<div class="form-group">
+							
+							    <label for="email_field">TO</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="email_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="returm_To"
+							    required
+							    readonly
+							    th:value="${addBus.To}"
+							    >
+							 </div>
+								<!-- Departure field -->
+							<div class="form-group">
+							
+							    <label for="email_field">Departure Time</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="email_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_depatureTime"
+							    required
+							    readonly
+							    th:value="${addBus.departure}"
+							    >
+							 </div>
+							 <!-- Arrival field -->
+							<div class="form-group">
+							
+							    <label for="email_field">Arrival Time</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="email_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_arivalTime"
+							    required
+							    readonly
+							    th:value="${addBus.arrival}"
+							    >
+							 </div>
+							 <!-- Duration field -->
+							<div class="form-group">
+							
+							    <label for="email_field">Duration Time</label>
+							    
+							    <input 
+							    type="text" 
+							    class="form-control" 
+							    id="email_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_duration"
+							    required
+							    readonly
+							    th:value="${addBus.duration}"
+							    >
+							 </div>
+							 
+							 <!-- flight trivalClass -->
+							 <div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="round_trivalClass" id="business" value="Ac" th:onclick="|priceChanging(${addBus.acPrice})|">
+							  <label class="form-check-label" for="business" >AC Class</label>
+							</div>
+							<div class="form-check form-check-inline">
+							  <input class="form-check-input" type="radio" name="round_trivalClass" id="economy" value="NonAc" th:onclick="|priceChangingSecond(${addBus.noAcPrice})|">
+							  <label class="form-check-label" for="economy">Non-AC Class</label>
+							</div>
+							 
+							 <!-- B_Price field -->
+							<div class="form-group">
+							
+							    <label for="bPrice_field">Total Price</label>
+							    
+							    <input 
+							    type="number" 
+							    class="form-control" 
+							    id="Price_field" 
+							    aria-describedby="emailHelp"
+							    placeholder="Enter Here"
+							    name="round_Price"
+							    required
+							    readonly
+							    
+							    >
+							 </div>
+							 <!-- Date Of Flight field -->
+							<div class="form-group">
+						      <label for="inputState">Date</label>
+						      <input type="date" id="inputState"  class="form-control" th:min="${date}" th:max="${date}" required readonly th:value="${date}" name="Re_date">
+						        
+						    </div>
+							   
+				          
+							  <div class="container text-center mt-4">
+							 	<button type="submit" class="btn bg-primary btn-block text-white">Book</button>
+							 </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script>
+	
+	const priceChanging = (price) =>{
+		document.getElementById("Price_field").value=price;
+	}
+	const priceChangingSecond = (price) =>{
+		document.getElementById("Price_field").value=price;
+	}
+	
+	
+	/* Link Active */
+	addEventListener('load',()=>{
+	document.getElementById('add-link').classList.add("active")
+	});
+	
+	addEventListener('unload',()=>{
+		document.getElementById('add-link').classList.remove('active');	
+	});
+</script>
+
+	</section>
+
+</body>
+</html>

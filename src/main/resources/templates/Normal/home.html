@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="Normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Home</title>
+</head>
+<body>
+	<section
+		class="banner d-flex justify-content-center align-items-center ">
+		<div class="text-center">
+			<h1 class="font-weight-bold">Airline Reservation System</h1>
+			<p>Air travel is a form of travel in vehicles such as airplanes, jet aircraft, helicopters, hot air balloons, blimps, gliders, hang gliders, parachutes, or anything else that can sustain flight
+			</p>
+			<a  th:href="@{/user/video}" class="btn bg-primary btn-lg text-white">Get Started</a>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="BusNormal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title> Home Page</title>
+</head>
+<body>
+	<section
+		class="banner_bus d-flex justify-content-center align-items-center ">
+		<div class="text-center">
+			<h1 class="font-weight-bold">Bus Reservation System</h1>
+			<p>
+     The fastest way to get to the city centre.</p>
+			<a  th:href="@{/user/video_bus}" class="btn bg-primary btn-lg text-white">Get Started</a>
+		</div>
+	</section>
+</body>
+</html>
